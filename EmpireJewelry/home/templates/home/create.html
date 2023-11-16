@@ -1,0 +1,63 @@
+{% extends 'menu_lateral/index.html' %}
+{% block content %}
+
+<h2>Cadastro de Bip</h2>
+<form class="card card-body" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="produto">Produto</label>
+            <select class="form-control" id="produto" required name="produto">
+                <option value="">Escolhe...</option>
+                {% if produtos %}
+                    {% for produto in produtos %}
+                        <option value="{{ produto.id }}">{{ produto.nome_produto }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Sem Opções</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="descricaoProduto">Descrição do Produto</label>
+            <textarea class="form-control" id="descricaoProduto" rows="6" placeholder="Digite a Descrição do Produto"required name="descricaoProduto"></textarea>
+        </div>
+        <div class="col-md-5 mb-3">
+            <div class="row">
+                <label for="data">Data</label>
+                <input type="date" class="form-control" id="data" placeholder="Digite a Data" required name="data" autocomplete="off">
+            </div>
+            <div class="row">
+                <label for="hora">Hora</label>
+                <input type="time" class="form-control" id="hora" placeholder="Digite a Hora" required name="hora" autocomplete="off">
+            </div>
+            <div class="row">
+                <label for="local">Local</label>
+                <input type="text" class="form-control" id="local" placeholder="Digite o Local" required name="local" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a class="btn btn-danger w-100" href="/home/">Cancelar</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+        </div>
+    </div>
+    
+</form>
+
+<script>
+    var dataAtual = new Date();
+
+    var dataFormatada = dataAtual.toISOString().split('T')[0];
+    document.getElementById('data').value = dataFormatada;
+
+    var horaFormatada = ('0' + dataAtual.getHours()).slice(-2) + ':' + ('0' + dataAtual.getMinutes()).slice(-2);
+    document.getElementById('hora').value = horaFormatada;
+</script>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'menu_lateral/index.html' %}
+{% block content %}
+
+<h2>Deletar Registro do Bip </h2>
+<form class="card card-body" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <p><strong>Deseja deletar o registro do bip abaixo?</strong></p>
+            <p><strong>Id:</strong> {{ bip.id }}</p>
+            <p><strong>Produto:</strong> {{ bip.produto.nome_produto | upper }}</p>
+            <p><strong>Descrição:</strong> {{ bip.descricao_produto | upper }}</p>
+            <p><strong>Data:</strong> {{ bip.data | date:"d/m/Y" }}</p>
+            <p><strong>Hora:</strong> {{ bip.hora }}</p>
+            <p><strong>Local:</strong> {{ bip.local | upper }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a class="btn btn-danger w-100" href="/home">Não</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <button type="submit" class="btn btn-success w-100">Sim</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endblock %}

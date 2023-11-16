@@ -1,0 +1,68 @@
+{% extends 'menu_lateral/index.html' %}
+{% block content %}
+
+{% load static %}
+
+<div class="row justify-content-between">
+    <div class="col-md-10">
+        <h2>Bips Registrados</h2>
+    </div>
+    <div class="row col-md-2">
+        <a href="/home/create" class="btn btn-primary w-100">Registrar Novo Bip</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="col-md-1">Opções</th>
+                <th scope="col">Id</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Descrição do Produto</th>
+                <th scope="col">Data</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Local</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% if bip %}
+                {% for row in bip %}
+                    <tr>
+                        <th scope="row">
+                            <a href="/home/edit/{{ row.id }}"><img src="{% static 'img/icon-edit-100.png' %}" alt="icon edit" class="w-35"></a>
+                            <a href="/home/delete/{{ row.id }}"><img src="{% static 'img/icon-delete-100.png' %}" alt="icon edit" class="w-35"></a>
+                        </th>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.produto.nome_produto | upper }}</td>
+                        <td>{{ row.descricao_produto | upper }}</td>
+                        <td>{{ row.data | date:"d/m/Y" }}</td>
+                        <td>{{ row.hora }}</td>
+                        <td>{{ row.local | upper }}</td>
+                    </tr> 
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th scope="row">Sem dados</th>
+                    <td>Sem dados</td>
+                    <td>Sem dados</td>
+                    <td>Sem dados</td>
+                    <td>Sem dados</td>
+                    <td>Sem dados</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% if messages %}
+<div class="row justify-content-end fixed-top m-3">
+    <div class="col-4 alert alert-success alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

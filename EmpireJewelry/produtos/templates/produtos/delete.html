@@ -1,0 +1,28 @@
+{% extends 'menu_lateral/index.html' %}
+{% block content %}
+
+<h2>Deletar Produtos </h2>
+<form class="card card-body" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <p><strong>Deseja deletar o produto abaixo?</strong></p>
+            <p><strong>Id:</strong> {{ produto.id }}</p>
+            <p><strong>Nome:</strong> {{ produto.nome_produto }}</p>
+            <p><strong>Descrição:</strong> {{ produto.descricao_produto }}</p>
+            <p><strong>Tipo:</strong> {{ produto.tipo_produto.nome_tipo_produto }}</p>
+            <p><strong>Matrial:</strong> {{ produto.tipo_material.nome_tipo_material }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a class="btn btn-danger w-100" href="/produtos/">Não</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <button type="submit" class="btn btn-success w-100">Sim</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endblock %}

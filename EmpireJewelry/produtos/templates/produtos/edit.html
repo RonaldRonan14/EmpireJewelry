@@ -1,0 +1,60 @@
+{% extends 'menu_lateral/index.html' %}
+{% block content %}
+
+<h2>Cadastro de Produtos </h2>
+<form class="card card-body" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="nomeProduto">Nome do Produto</label>
+            <input type="text" class="form-control" id="nomeProduto" placeholder="Digite o Nome do Produto" required name="nomeProduto" autocomplete="off" value="{{ produto.nome_produto }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="descricaoProduto">Descrição do Produto</label>
+            <textarea class="form-control" id="descricaoProduto" rows="3" placeholder="Digite a Descrição do Produto"required name="descricaoProduto" value="{{ produto.descricao_produto }}">{{ produto.descricao_produto }}</textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="tipoProduto">Tipo De Produto</label>
+            <select class="form-control" id="tipoProduto" required name="tipoProduto">
+                <option value="">Escolhe...</option>
+                {% if tipo_produtos %}
+                    {% for tipo_produto in tipo_produtos %}
+                        <option value="{{ tipo_produto.id }}" {% if tipo_produto.id == produto.tipo_produto.id %}selected{% endif %}>{{ tipo_produto.nome_tipo_produto }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Sem Opções</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="tipoMaterial">Tipo De Material</label>
+            <select class="form-control" id="Tipo De Material" required name="tipoMaterial">
+                <option value="">Escolhe...</option>
+                {% if tipo_materiais %}
+                    {% for tipo_material in tipo_materiais %}
+                        <option value="{{ tipo_material.id }}" {% if tipo_material.id == produto.tipo_material.id %}selected{% endif %}>{{ tipo_material.nome_tipo_material }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Sem Opções</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a class="btn btn-danger w-100" href="/produtos/">Cancelar</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endblock %}
